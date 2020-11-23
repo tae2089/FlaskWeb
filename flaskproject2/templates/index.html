@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Flask Index</title>
+</head>
+<script>
+
+const Gugudan = () =>{
+  const[first,setFirst] = React.useState(Math.ceil(Math.random()*9));
+  const [second, setSecond] = React.useState(Math.ceil(Math.random() * 9));
+  const [value, setValue] = React.useState('');
+  const [result, setResult] = React.useState('');
+
+  return (
+    <React.Fragment>
+      <div>
+        {first} 곱하기 {second}
+      </div>
+      <form>
+        <input value = {value}/>
+        <button>입력</button>
+      </form>
+      <div id="result">{result}</div>
+    </React.Fragment>
+  )
+}
+</script>
+<body>
+
+  <h1>Hello Flask</h1>
+  <p>This page is for Flask tutorial.</p>
+</body>
+
+</html>

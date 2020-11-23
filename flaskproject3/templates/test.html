@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+        <script type=text/javascript src="{{url_for('static', filename='jQuery.js') }}"></script>
+        <script>
+
+        $('document').ready(function () {
+        setInterval(function () {getRealData()}, 1);//request every x seconds
+        }); 
+
+function getRealData() {
+$.ajax({
+                type : 'GET',     
+                url : '/testing',
+                success: function (result) {
+                        /// some code to get result
+                        var text_data = $('#case').val();
+                        result = JSON.stringify(result);
+                        data = JSON.parse(result);
+                        if(data.id != text_data){
+                                document.getElementById("case").value = data.id;
+                                if (result != null)
+                                {
+                                        testing(result);
+                                }
+                                }
+                        }
+                }
+)}
+function getRealData2() {
+$.ajax({
+                type : 'POST',     
+                url : '/change-test',
+                success: function (result) {
+                        /// some code to get result
+                        }
+                }
+)}
+
+        function test(){
+                var text_data = $('#SensorID').val();
+                $.ajax({
+                        type : 'POST',                
+                        url : '/request',
+                        data : {
+                                "SensorID":text_data
+                        },
+                        dataType : 'JSON',
+                        header:{
+					"Content-Type":"application/json"},
+                        success : function(result){
+                                alert(result);
+                                a = JSON.stringify(result);
+                                testing(a);
+                        },
+                        error : function(xtr,status,error){
+                                alert(xtr +":"+status+":"+error);
+                        }
+                });
+        }
+        function testing(result){
+                        data = JSON.parse(result);
+                        var randValNode = document.getElementById("test1");
+
+                        if(data.email != undefined){
+                                randValNode.innerHTML += "<br><b><font color='red'>"+data.email+"</font></b>";
+                        }
+                        
+
+        }
+                function testing2(){
+			var randValNode = document.getElementById("test1");
+			randValNode.innerHTML += "<br><b><font color='red'>"+1+"</font></b>";
+        }
+        </script>
+
+
+
+
+        <body>
+                <p>검색하고자 하는 아이템을 입력하세요.</p>
+                <!-- <input type = "text" name="SensorID" id="SensorID"/>
+                <input type = "button" value = "데이터 요청" onclick="test()"/> -->
+                <p id="test1"></p>
+                <input type ="hidden" id = "case" name = "case"/>
+        </body>
+</html>
